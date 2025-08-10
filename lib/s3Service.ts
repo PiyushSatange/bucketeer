@@ -76,12 +76,16 @@ export async function getPresignedUrltoUpload(
 }
 
 // Function to list objects in a bucket
-export async function listObjectsInBucket(bucketName: string) {
+export async function listObjectsInBucket(bucketName: string, prefix: string) {
   try {
     const response = await s3.send(
-      new ListObjectsV2Command({ Bucket: bucketName })
+      new ListObjectsV2Command({
+        Bucket: bucketName,
+        Delimiter: "/",
+        Prefix: prefix,
+      })
     );
-    return { status: 200, objects: response.Contents || [] };
+    return { status: 200, objects: response || [] };
   } catch (error: any) {
     if (error.Code === "NoSuchBucket") {
       return { status: 404, error: "Bucket does not exist" };
