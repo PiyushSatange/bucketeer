@@ -53,7 +53,10 @@ export async function deleteBucket(bucketName: string) {
 }
 
 // Function to add a file to a bucket
-export async function getPresignedUrl(bucketName: string, fileName: string) {
+export async function getPresignedUrltoUpload(
+  bucketName: string,
+  fileName: string
+) {
   try {
     const url = await getSignedUrl(
       s3,
