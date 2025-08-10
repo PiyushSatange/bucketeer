@@ -1,3 +1,5 @@
+"use client";
+import SignInPage from "@/pages/signIn";
 import {
   ClerkProvider,
   SignInButton,
@@ -6,7 +8,9 @@ import {
   SignedOut,
   UserButton,
   SignIn,
+  SignUp,
 } from "@clerk/nextjs";
+import "./globals.css";
 
 export default function RootLayout({
   children,
@@ -19,16 +23,9 @@ export default function RootLayout({
         <body>
           <header>
             <SignedOut>
-              <p>you are not signed in</p>
-              <SignIn routing="hash" />
-              <SignUpButton>
-                <button>Sign Up</button>
-              </SignUpButton>
+              <SignInPage />
             </SignedOut>
-            <SignedIn>
-              <UserButton />
-              {children}
-            </SignedIn>
+            <SignedIn>{children}</SignedIn>
           </header>
         </body>
       </html>
