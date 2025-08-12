@@ -22,6 +22,7 @@ export default function BucketPage() {
         <div className="grid grid-cols-6 gap-4">
           {buckets.map((bucket: any) => (
             <Link
+              key={bucket.Name}
               href={`/dashboard/bucket/${bucket.Name}`}
               className="flex flex-col items-center justify-center p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition"
             >
