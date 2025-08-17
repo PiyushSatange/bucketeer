@@ -3,22 +3,28 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Loading from "@/components/loading";
 export default function BucketPage() {
   const [buckets, setBuckets] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchBuckets = async () => {
+      setLoading(true);
       const response = await fetch("/api/buckets");
       const data = await response.json();
       if (data.status == 200) {
         setBuckets(data.buckets);
       }
+      setLoading(false);
     };
     fetchBuckets();
   }, []);
 
   return (
     <>
-      {buckets.length > 0 ? (
+      {loading ? (
+        <Loading />
+      ) : buckets.length > 0 ? (
         <div className="grid grid-cols-6 gap-4">
           {buckets.map((bucket: any) => (
             <Link
