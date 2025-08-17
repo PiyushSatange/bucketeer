@@ -2,6 +2,7 @@
 
 import CreateButton from "@/components/createButton";
 import Loading from "@/components/loading";
+import { ArrowBigLeft } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { useEffect, useState } from "react";
@@ -56,7 +57,15 @@ export default function BucketDetailPage({
 
   return (
     <>
-      <CreateButton>Folder</CreateButton>
+      <div className="flex">
+        <CreateButton>Folder</CreateButton>
+        <button className="bg-primary text-white py-2 px-4 rounded mb-4 ml-5 flex justify-center items-center">
+          <span className="mr-2">
+            <ArrowBigLeft />
+          </span>
+          Back
+        </button>
+      </div>
       {loading ? (
         <Loading />
       ) : (
