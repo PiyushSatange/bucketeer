@@ -1,5 +1,6 @@
 "use client";
 
+import CreateButton from "@/components/createButton";
 import Loading from "@/components/loading";
 import Image from "next/image";
 import React from "react";
@@ -55,9 +56,7 @@ export default function BucketDetailPage({
 
   return (
     <>
-      <button className="bg-primary font-bold text-white p-2 rounded-lg mb-4 cursor-pointer">
-        Create Folder
-      </button>
+      <CreateButton>Folder</CreateButton>
       {loading ? (
         <Loading />
       ) : (

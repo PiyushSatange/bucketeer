@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Loading from "@/components/loading";
+import CreateButton from "@/components/createButton";
 export default function BucketPage() {
   const [buckets, setBuckets] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -22,9 +23,7 @@ export default function BucketPage() {
 
   return (
     <>
-      <button className="bg-primary font-bold text-white p-2 rounded-lg mb-4 cursor-pointer">
-        Create Bucket
-      </button>
+      <CreateButton>Bucket</CreateButton>
       {loading ? (
         <Loading />
       ) : buckets.length > 0 ? (
