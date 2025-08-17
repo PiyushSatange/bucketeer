@@ -22,6 +22,9 @@ export default function BucketPage() {
 
   return (
     <>
+      <button className="bg-primary font-bold text-white p-2 rounded-lg mb-4 cursor-pointer">
+        Create Bucket
+      </button>
       {loading ? (
         <Loading />
       ) : buckets.length > 0 ? (
