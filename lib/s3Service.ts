@@ -27,13 +27,7 @@ export async function createBucket(bucketName: string) {
     );
     return response;
   } catch (error: any) {
-    if (error.Code === "BucketAlreadyExists") {
-      return { status: 409, error: "Bucket already exists" };
-    }
-    if (error.Code === "BucketAlreadyOwnedByYou") {
-      return { status: 409, error: "Bucket already owned by you" };
-    }
-    return { status: 500, error: "Failed to create bucket" };
+    return { status: 500, error: error.message };
   }
 }
 

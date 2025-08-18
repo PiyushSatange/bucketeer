@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const bucketName = await request.json();
+  const { bucketName } = await request.json();
   if (!bucketName || typeof bucketName !== "string") {
     return NextResponse.json(
       { error: "Bucket name is required" },
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     );
   }
   const response = await createBucket(bucketName);
-  return NextResponse.json(response);
+  return NextResponse.json({ status: 200, ...response });
 }
 
 export async function DELETE(request: NextRequest) {

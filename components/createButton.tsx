@@ -1,7 +1,31 @@
+import { Type } from "lucide-react";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const CreateButton = ({ children }: { children: React.ReactNode }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [name, setName] = useState("");
+  const router = useRouter();
+
+  const handleClickCreate = async () => {
+    if (children == "Folder") {
+      // Handle folder creation
+    } else if (children == "Bucket") {
+      // Handle bucket creation
+      const response = await fetch("/api/buckets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bucketName: name }),
+      });
+      const data = await response.json();
+      if (data.status === 200) {
+        toast.success(`Bucket "${name}" created successfully!`);
+      } else {
+        toast.error(`Error creating bucket: ${data.error}`);
+      }
+    }
+  };
 
   return (
     <>
@@ -11,6 +35,7 @@ const CreateButton = ({ children }: { children: React.ReactNode }) => {
       >
         New {children}
       </button>
+      <Toaster />
 
       {isModalOpen && (
         <div className="fixed flex justify-center items-center inset-0 bg-transparent bg-opacity-50 backdrop-blur-sm">
@@ -25,7 +50,9 @@ const CreateButton = ({ children }: { children: React.ReactNode }) => {
                   type="text"
                   id="bucket-name"
                   placeholder={`${children} Name`}
+                  value={name}
                   className="border border-gray-300 p-2 rounded mb-4 w-full"
+                  onChange={(e) => setName(e.target.value)}
                 />
               </form>
             </div>
@@ -33,6 +60,7 @@ const CreateButton = ({ children }: { children: React.ReactNode }) => {
               <button
                 type="submit"
                 className="bg-primary text-white py-2 px-4 rounded"
+                onClick={handleClickCreate}
               >
                 Create
               </button>
