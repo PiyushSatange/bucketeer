@@ -6,7 +6,7 @@ const CreateButton = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <button
-        className="bg-primary text-white py-2 px-4 rounded mb-4"
+        className="bg-primary text-white py-2 px-4 rounded mb-4 cursor-pointer"
         onClick={() => setIsModalOpen(true)}
       >
         New {children}

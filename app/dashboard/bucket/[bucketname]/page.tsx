@@ -6,6 +6,7 @@ import { ArrowBigLeft } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function BucketDetailPage({
   params,
@@ -17,12 +18,13 @@ export default function BucketDetailPage({
   const [folders, setFolders] = useState([]);
   const [payload, setPayload] = useState({ folderName: "" });
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     async function getObjects() {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:3000/api/bucket/${bucketname}?prefix=${payload.folderName}`
+        `/api/bucket/${bucketname}?prefix=${payload.folderName}`
       );
 
       const data = await response.json();
@@ -55,11 +57,26 @@ export default function BucketDetailPage({
     getObjects();
   }, [payload]);
 
+  function handleBackClick() {
+    if (!payload.folderName) {
+      router.push("/dashboard/bucket");
+    } else {
+      setPayload((prev) => ({
+        folderName:
+          prev.folderName.split("/").slice(0, -2).join("/") +
+          (prev.folderName.split("/").length > 2 ? "/" : ""),
+      }));
+    }
+  }
+
   return (
     <>
       <div className="flex">
         <CreateButton>Folder</CreateButton>
-        <button className="bg-primary text-white py-2 px-4 rounded mb-4 ml-5 flex justify-center items-center">
+        <button
+          className="bg-primary text-white py-2 px-4 rounded mb-4 ml-5 flex justify-center items-center cursor-pointer"
+          onClick={handleBackClick}
+        >
           <span className="mr-2">
             <ArrowBigLeft />
           </span>
